@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+require("console.table");
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -10,31 +11,22 @@ var connection = mysql.createConnection({
 });
 
 connection.connect(function(err) {
-  if (err) throw err;
-  itemsForSale();
+    if (err) {
+      console.error("error connecting: " + err.stack);
+    }
+
+itemsForSale();
 });
 
 function itemsForSale() {
-  connection.query("SELECT item_id, product_name, price, stock_quantity FROM products WHERE stock_quantity>0",
+  connection.query("SELECT * FROM products",
     
     function(err, res) {
       if (err) throw err;
-      console.table("ID \t Name \t Price \t Quantity\n");
-      for (var i = 0; i < res.length; i++) {
-        
-        console.log(
-          res[i].item_id +
-            "\t" +
-            res[i].product_name +
-            "\t" +
-            res[i].price +
-            "\t" +
-            res[i].stock_quantity +
-            "\n"
-        );
-      }
+      console.table(res);
+      
 
-      promptQuestions(res.length);
+      promptQuestions(res);
 
     }
   );
@@ -68,14 +60,14 @@ function promptQuestions(length) {
         .then(function(answer) {
           if (
             purchaseItemId > length + 1 ||
-            isValue(purchaseItemId) ||
-            isValue(answer.quantity)
+            isNaN(purchaseItemId) ||
+            isNaN(answer.quantity)
           ) {
             console.log("Invalid Input");
-            if (purchaseItemId > length + 1 || isValue(purchaseItemId)) {
+            if (purchaseItemId > length + 1 || isNaN(purchaseItemId)) {
               console.log("The item ID is not valid");
             }
-            if (isValue(answer.quantity)) {
+            if (isNaN(answer.quantity)) {
               console.log("Invalid Quantity. Please try again.");
             }
 

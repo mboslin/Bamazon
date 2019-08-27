@@ -4,12 +4,12 @@ USE bamazon;
 DROP TABLE products;
 
 CREATE TABLE products (
-item_id INTEGER(10) NOT NULL auto_increment,
+item_id INTEGER(10) NOT NULL,
 product_name VARCHAR(100),
 department_name VARCHAR(50),
 price DECIMAL(20,2),
 stock_quantity INTEGER(20),
-PRIMARY KEY(item_id)
+primary key(item_id)
 );
 
 INSERT INTO products (item_id, product_name, department_name, price, stock_quantity)
