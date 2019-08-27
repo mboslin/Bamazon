@@ -8,7 +8,10 @@ The node app bamazonCustomer.js will take purchases from customers and remove in
 If the item the customer chooses is available, the item will be successfully sold and the total amount of the purchase will be displayed, otherwise "insuffecient stock" will be displayed to the customer. 
 
 
-![Alt Text](Screenshots/Bamazon.gif)
+![Alt Text](Screenshots/Bamazoncustomer.gif)
+
+
+![Alt Text](Screenshots/Bamazonmanager.gif)
 
 
 ## Technologies Used:
